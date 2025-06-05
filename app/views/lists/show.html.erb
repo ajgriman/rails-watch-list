@@ -1,0 +1,16 @@
+<%# app/views/lists/show.html.erb %>
+<div class="container mt-4">
+  <h1><%= @list.name %></h1>
+
+  <p>
+    <%# Placeholder for bookmarks/movies related to this list %>
+    <%# We will add bookmark display and management here in a later phase %>
+    <em>Bookmarks will be shown here.</em>
+  </p>
+
+  <hr>
+
+  <%= link_to 'Edit this list', edit_list_path(@list), class: "btn btn-warning" %> |
+  <%= link_to 'Back to lists', lists_path, class: "btn btn-secondary" %> |
+  <%= link_to 'Destroy this list', @list, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-danger mt-3" %>
+</div>

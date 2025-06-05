@@ -1,0 +1,11 @@
+<%# app/views/lists/edit.html.erb %>
+<div class="container mt-4">
+  <h1>Editing List: <%= @list.name %></h1>
+
+  <%= render 'form', list: @list %>
+
+  <br>
+
+  <%= link_to 'Show this list', @list, class: "btn btn-info" %> |
+  <%= link_to 'Back to lists', lists_path, class: "btn btn-secondary" %>
+</div>
