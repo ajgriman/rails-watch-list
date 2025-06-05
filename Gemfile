@@ -60,3 +60,10 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  gem 'rspec-rails'
+  gem 'rails-controller-testing'
+  # Potentially other test gems if they exist
+end
+
+gem "ostruct"
