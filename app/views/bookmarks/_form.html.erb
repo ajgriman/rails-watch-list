@@ -1,0 +1,25 @@
+<%# app/views/bookmarks/_form.html.erb %>
+<%# This form expects @list and @bookmark to be set by the calling controller/view %>
+<%# It also expects @movies_for_select for the movie dropdown %>
+
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <%= f.association :movie,
+                      collection: @movies_for_select,
+                      prompt: "Select a movie",
+                      label: false, # Hide label if context is clear
+                      input_html: { class: 'form-select form-select-sm mb-2' } %>
+    <%= f.input :comment,
+                as: :text,
+                placeholder: "Your comment for this movie in this list (min. 6 chars)...",
+                label: false, # Hide label if context is clear
+                input_html: { rows: 2, class: 'form-control-sm' } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Add Movie to List", class: "btn btn-primary btn-sm" %>
+  </div>
+<% end %>

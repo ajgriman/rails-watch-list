@@ -11,7 +11,8 @@ class ListsController < ApplicationController
     # @list is set by before_action :set_list
     # No additional logic needed here for now, unless we want to eager load associated data.
     # For example, if showing bookmarks on this page:
-    # @bookmarks = @list.bookmarks.includes(:movie)
+    @bookmark = Bookmark.new # For the simple_form_for
+    @movies_for_select = Movie.order(:title) # For the movie selection dropdown
   end
 
   # GET /lists/new
