@@ -1,23 +1,42 @@
 <%# app/views/lists/index.html.erb %>
 <div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="d-flex justify-content-between align-items-center mb-4"> <%# Increased margin-bottom %>
     <h1>Movie Lists</h1>
-    <%= link_to 'Create New List', new_list_path, class: "btn btn-success" %>
+    <%= link_to 'Create New List', new_list_path, class: "btn btn-primary" %> <%# Changed btn-success to btn-primary for variety %>
   </div>
 
   <% if @lists.any? %>
-    <ul class="list-group">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4"> <%# Bootstrap grid for responsiveness %>
       <% @lists.each do |list| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <%= link_to list.name, list_path(list) %>
-          <div>
-            <%= link_to 'Edit', edit_list_path(list), class: "btn btn-sm btn-warning me-2" %>
-            <%= link_to 'Destroy', list_path(list), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+        <div class="col">
+          <div class="card h-100 shadow-sm"> <%# Added h-100 for equal height cards and shadow-sm %>
+            <%# Display List Image - Placeholder if no image_url %>
+            <% if list.image_url.present? %>
+              <%= image_tag list.image_url, class: "card-img-top", alt: list.name, style: "height: 200px; object-fit: cover;" %>
+            <% else %>
+              <%# Simple placeholder using a div with background color and text %>
+              <div class="card-img-top d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 200px;">
+                <span>No Image Provided</span>
+              </div>
+            <% end %>
+
+            <div class="card-body d-flex flex-column"> <%# flex-column for button alignment %>
+              <h5 class="card-title"><%= link_to list.name, list_path(list), class: "text-decoration-none" %></h5>
+              <%# Optional: Add a short description or movie count here later %>
+              <%# <p class="card-text"><small class="text-muted">Contains X movies</small></p> %>
+              <div class="mt-auto"> <%# Push buttons to the bottom of the card %>
+                <%= link_to 'Edit', edit_list_path(list), class: "btn btn-sm btn-outline-secondary me-2" %>
+                <%= link_to 'Destroy', list_path(list), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
+              </div>
+            </div>
           </div>
-        </li>
+        </div>
       <% end %>
-    </ul>
+    </div>
   <% else %>
-    <p>No lists have been created yet. <%= link_to 'Create one now!', new_list_path %></p>
+    <div class="text-center py-5">
+      <p class="lead">No lists have been created yet.</p>
+      <%= link_to 'Create one now!', new_list_path, class: "btn btn-lg btn-primary" %>
+    </div>
   <% end %>
 </div>
