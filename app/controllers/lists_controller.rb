@@ -62,6 +62,6 @@ class ListsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def list_params
-    params.require(:list).permit(:name) # Add other attributes here if List model gets more, e.g., :image_url
+    params.require(:list).permit(:name, :image_url) # Add other attributes here if List model gets more, e.g., :image_url
   end
 end

@@ -1,15 +1,15 @@
 class List < ApplicationRecord
   # == Associations ==
-  # A list can have many bookmarks.
-  # If a list is deleted, all of its associated bookmarks should also be deleted.
-  # The movies themselves will not be deleted as they can be part of other lists.
   has_many :bookmarks, dependent: :destroy
-
-  # A list has many movies, accessible through the bookmarks.
-  # This allows for easy querying like `list.movies`.
   has_many :movies, through: :bookmarks
 
   # == Validations ==
-  # The name of the list must be present and unique.
   validates :name, presence: true, uniqueness: true
+
+  # Validate the format of image_url if it's present.
+  # Allows http and https URLs. Allows the field to be blank.
+  validates :image_url, format: {
+    with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
+    message: "must be a valid URL (e.g., http://example.com/image.jpg)"
+  }, allow_blank: true # Set allow_blank: false if an image_url should always be required
 end
