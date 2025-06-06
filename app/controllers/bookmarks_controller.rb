@@ -15,8 +15,10 @@ class BookmarksController < ApplicationController
     if @bookmark.save
       redirect_to @list, notice: 'Bookmark was successfully created.'
     else
-      @movies_for_select = Movie.order(:title) # Reload movies if rendering new again
-      render :new, status: :unprocessable_entity
+      @movies_for_select = Movie.order(:title) # Ensure movies are available for the re-rendered form
+
+      flash.now[:alert] = "Please check errors below."
+      render 'lists/show', status: :unprocessable_entity
     end
   end
 
