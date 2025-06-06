@@ -1,3 +1,7 @@
+<%# app/views/lists/show.html.erb %>
+
+<%# --- Banner Section (remains the same) --- %>
+<%# ... (banner code as before) ... %>
 <% if @list.image_url.present? %>
   <div class="list-banner" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= @list.image_url %>');">
     <div class="container text-white text-center py-5">
@@ -15,25 +19,26 @@
 <%# --- Main Content Section --- %>
 <div class="container mt-4">
 
-  <%# --- Section to Add New Bookmark --- %>
+  <%# --- Section to Add New Bookmark (remains the same) --- %>
+  <%# ... (embedded bookmark form code as before) ... %>
   <div class="card shadow-sm mb-4">
     <div class="card-header">
       <h5 class="mb-0">Add a Movie to this List</h5>
     </div>
     <div class="card-body">
-      <%# Render the bookmark form partial %>
-      <%# @list, @bookmark, and @movies_for_select are provided by ListsController#show %>
       <%= render 'bookmarks/form', list: @list, bookmark: @bookmark, movies_for_select: @movies_for_select %>
     </div>
   </div>
 
-  <hr class="my-4"> <%# Separator %>
+  <hr class="my-4">
 
-  
+  <%# --- Display Existing Bookmarked Movies (remains largely the same) --- %>
+  <%# ... (bookmarked movies display code as before) ... %>
   <% if @list.bookmarks.any? %>
     <h5>Bookmarked Movies:</h5>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
       <% @list.bookmarks.includes(:movie).each do |bookmark| %>
+        <%# ... card for each bookmark ... %>
         <div class="col">
           <div class="card h-100 shadow-sm">
             <% if bookmark.movie.poster_url.present? %>
@@ -58,13 +63,38 @@
   <% else %>
     <div class="text-center py-4">
       <p class="lead">No movies have been bookmarked in this list yet.</p>
-      <%# Consider if the "Add a Movie" form above is sufficient call to action now %>
     </div>
   <% end %>
 
   <hr class="my-4">
 
+  <%# --- Section for Reviews --- %>
+  <div class="reviews-section mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4>Reviews for this List</h4>
+      <%= link_to 'Add a Review', new_list_review_path(@list), class: "btn btn-info btn-sm" %>
+    </div>
+
+    <% if @list.reviews.any? %>
+      <% @list.reviews.order(created_at: :desc).each do |review| %>
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <p class="card-text"><strong>Rating:</strong> <%= review.rating %>/5 stars</p>
+            <p class="card-text"><%= review.content %></p>
+            <p class="card-text"><small class="text-muted">Reviewed on <%= review.created_at.strftime("%B %d, %Y") %></small></p>
+            <%# No delete/edit for reviews in this phase %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No reviews for this list yet. Be the first to add one!</p>
+    <% end %>
+  </div>
+
+  <hr class="my-4">
+
   <%# List Action Buttons (remains the same) %>
+  <%# ... (edit/destroy/back buttons for the list itself) ... %>
   <div class="text-center mb-4">
     <%= link_to 'Edit this list', edit_list_path(@list), class: "btn btn-outline-secondary me-2" %>
     <%= link_to 'Destroy this list', @list, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-outline-danger me-2" %>

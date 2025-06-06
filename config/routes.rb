@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # Add the following line for List resources:
   resources :lists do
     resources :bookmarks, only: [:new, :create]
+    resources :reviews, only: [:new, :create]
   end
   resources :bookmarks, only: [:destroy]
 end

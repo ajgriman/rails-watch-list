@@ -1,0 +1,25 @@
+<%# app/views/reviews/new.html.erb %>
+<div class="container mt-4">
+  <h2>Add a Review for "<%= @list.name %>"</h2>
+
+  <%= simple_form_for [@list, @review] do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <div class="form-inputs mb-3">
+      <%= f.input :rating,
+                  collection: 1..5, # Creates a select dropdown for 1 to 5
+                  prompt: "Select a rating (1-5 stars)",
+                  input_html: { class: 'form-select form-select-sm mb-2' } %>
+      <%= f.input :content,
+                  as: :text,
+                  placeholder: "Your review content...",
+                  input_html: { rows: 4, class: 'form-control-sm' } %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Submit Review", class: "btn btn-primary btn-sm" %>
+      <%= link_to 'Cancel', list_path(@list), class: "btn btn-secondary btn-sm" %>
+    </div>
+  <% end %>
+</div>

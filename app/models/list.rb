@@ -2,6 +2,7 @@ class List < ApplicationRecord
   # == Associations ==
   has_many :bookmarks, dependent: :destroy
   has_many :movies, through: :bookmarks
+  has_many :reviews, dependent: :destroy # Add this line
 
   # == Validations ==
   validates :name, presence: true, uniqueness: true
