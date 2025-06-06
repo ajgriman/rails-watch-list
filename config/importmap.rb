@@ -7,3 +7,4 @@ pin "vue", to: 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.esm.browser.min
 pin_all_from "app/javascript/components", under: "components"
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "tom-select", to: "https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.js"
+pin "star-rating-js", to: "star-rating.js"

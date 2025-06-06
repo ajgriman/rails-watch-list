@@ -1,0 +1,9 @@
+// app/assets/stylesheets/components/_stars.scss
+.star-display {
+  .rating-star {
+    width: 16px;  // Adjust size as needed
+    height: 16px; // Adjust size as needed
+    vertical-align: middle;
+    margin-right: 2px; // Small spacing between stars
+  }
+}

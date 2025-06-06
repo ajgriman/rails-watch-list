@@ -7,12 +7,23 @@
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
     <div class="form-inputs mb-3">
+      <%# Change the rating input to a select that star-rating.js can enhance %>
+      <%# The library will hide this select and replace it with stars %>
       <%= f.input :rating,
-                  collection: 1..5, # Creates a select dropdown for 1 to 5
-                  prompt: "Select a rating (1-5 stars)",
-                  input_html: { class: 'form-select form-select-sm mb-2' } %>
+                  collection: 1..5, # Keep as collection 1..5 for standard select options
+                  prompt: "Select your rating",
+                  label: "Your Rating", # Add a proper label
+                  input_html: {
+                    class: 'star-rating', # Class for star-rating.js to find
+                    # data attributes for star-rating.js configuration can be added here if needed
+                    # e.g., data_max_stars: "5", data_clearable: "false"
+                    # but defaults are often fine.
+                  },
+                  wrapper_html: { class: 'mb-3' } %>
+
       <%= f.input :content,
                   as: :text,
+                  label: "Your Review", # Add a proper label
                   placeholder: "Your review content...",
                   input_html: { rows: 4, class: 'form-control-sm' } %>
     </div>

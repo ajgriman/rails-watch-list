@@ -79,10 +79,14 @@
       <% @list.reviews.order(created_at: :desc).each do |review| %>
         <div class="card mb-3 shadow-sm">
           <div class="card-body">
-            <p class="card-text"><strong>Rating:</strong> <%= review.rating %>/5 stars</p>
+            <%# Use the display_stars helper here %>
+            <div class="mb-2">
+              <strong>Rating:</strong> <%= display_stars(review.rating) %>
+              <%# Alternative if you want the number too: %>
+              <%# <strong>Rating:</strong><%= display_stars(review.rating) %>
+            </div>
             <p class="card-text"><%= review.content %></p>
             <p class="card-text"><small class="text-muted">Reviewed on <%= review.created_at.strftime("%B %d, %Y") %></small></p>
-            <%# No delete/edit for reviews in this phase %>
           </div>
         </div>
       <% end %>
