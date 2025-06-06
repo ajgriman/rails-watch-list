@@ -1,0 +1,23 @@
+<%# app/views/bookmarks/new.html.erb %>
+<div class="container mt-4">
+  <h2>Add a new movie to "<%= @list.name %>" list</h2>
+
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <div class="form-inputs">
+      <%# The exercise mentions using f.association for movies %>
+      <%= f.association :movie,
+                        collection: @movies_for_select,
+                        prompt: "Select a movie",
+                        input_html: { class: 'form-select' } %>
+      <%= f.input :comment, as: :text, input_html: { rows: 3 } %>
+    </div>
+
+    <div class="form-actions mt-3">
+      <%= f.button :submit, "Add Movie", class: "btn btn-primary" %>
+      <%= link_to 'Cancel', list_path(@list), class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

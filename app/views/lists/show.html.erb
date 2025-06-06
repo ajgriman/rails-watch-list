@@ -1,14 +1,59 @@
+# <%# app/views/lists/show.html.erb %>
+# <div class="container mt-4">
+#   <h1><%= @list.name %></h1>
+
+#   <p>
+#     <%# Placeholder for bookmarks/movies related to this list %>
+#     <%# We will add bookmark display and management here in a later phase %>
+#     <em>Bookmarks will be shown here.</em>
+#   </p>
+
+#   <hr>
+
+#   <%= link_to 'Edit this list', edit_list_path(@list), class: "btn btn-warning" %> |
+#   <%= link_to 'Back to lists', lists_path, class: "btn btn-secondary" %> |
+#   <%= link_to 'Destroy this list', @list, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-danger mt-3" %>
+# </div>
+
 <%# app/views/lists/show.html.erb %>
 <div class="container mt-4">
-  <h1><%= @list.name %></h1>
-
-  <p>
-    <%# Placeholder for bookmarks/movies related to this list %>
-    <%# We will add bookmark display and management here in a later phase %>
-    <em>Bookmarks will be shown here.</em>
-  </p>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1><%= @list.name %></h1>
+    <%= link_to 'Add Movie to this List', new_list_bookmark_path(@list), class: "btn btn-success" %>
+  </div>
 
   <hr>
+
+  <% if @list.bookmarks.any? %>
+    <h5>Bookmarked Movies:</h5>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% @list.bookmarks.includes(:movie).each do |bookmark| %> <%# Eager load movie %>
+        <div class="col">
+          <div class="card h-100">
+            <% if bookmark.movie.poster_url.present? %>
+              <%= image_tag bookmark.movie.poster_url, class: "card-img-top", alt: bookmark.movie.title, style: "height: 300px; object-fit: cover;" %>
+            <% else %>
+              <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 300px;">
+                <span class="text-white">No Image</span>
+              </div>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= bookmark.movie.title %> <small class="text-muted">(<%= bookmark.movie.rating %>/10)</small></h5>
+              <p class="card-text"><%= truncate(bookmark.movie.overview, length: 100) %></p>
+              <p class="card-text"><small class="text-muted">Your comment: <%= bookmark.comment %></small></p>
+            </div>
+            <div class="card-footer">
+              <%= link_to 'Remove from list', bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to remove this movie from the list?' }, class: "btn btn-sm btn-danger" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No movies have been bookmarked in this list yet.</p>
+  <% end %>
+
+  <hr class="my-4">
 
   <%= link_to 'Edit this list', edit_list_path(@list), class: "btn btn-warning" %> |
   <%= link_to 'Back to lists', lists_path, class: "btn btn-secondary" %> |
