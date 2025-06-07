@@ -6,6 +6,9 @@ import 'tom-select'; // For TomSelect
 // This line ensures vendor/javascript/star-rating.js is loaded and executed by importmap.
 // We are NOT trying to get any exports from it here. We expect it to create window.StarRating.
 import 'star-rating-js';
+import 'typed.js';
+import 'aos';
+
 
 // (TomSelect initialization code can remain as is, assuming it's working)
 function initializeTomSelectOnMovieDropdown() {
@@ -67,7 +70,79 @@ function initializeStarRating() {
   }
 }
 
+// Function to initialize Typed.js
+function initializeTypedJs() {
+  const typedElement = document.getElementById('typed-lists-title');
+  if (typedElement && typeof Typed !== 'undefined') { // Check for global Typed
+    if (typedElement._typedInstance) { // Prevent re-initialization
+        // typedElement._typedInstance.destroy(); // Optionally destroy old before creating new
+        return;
+    }
+    try {
+      typedElement._typedInstance = new Typed('#typed-lists-title', { // Target the ID
+        strings: ['Movie Lists', 'Your Curated Collections', 'Discover & Share!'], // Text to type
+        typeSpeed: 70,   // Speed of typing
+        backSpeed: 40,   // Speed of backspacing
+        backDelay: 1000, // Delay before starting to backspace
+        loop: true,      // Loop the animation
+        smartBackspace: true // Only backspace what doesn't match the next string
+      });
+      console.log("Typed.js initialized on #typed-lists-title.");
+    } catch(e) {
+      console.error("Error initializing Typed.js:", e);
+    }
+  } else if (typedElement && typeof Typed === 'undefined') {
+    console.warn("Typed global not found. Retrying Typed.js initialization in 250ms...");
+    setTimeout(initializeTypedJs, 250);
+  }
+}
+
+function initializeAOS() {
+  if (typeof AOS !== 'undefined') { // Checks window.AOS
+    try {
+      AOS.init({
+        // duration: 800, // Optional global settings
+        // once: true
+      });
+      console.log("AOS (vendored, modified) initialized.");
+    } catch(e) {
+      console.error("Error initializing AOS (vendored, modified):", e);
+    }
+  } else {
+    console.warn("AOS global not found. Retrying AOS initialization in 250ms...");
+    // Robust retry can be kept or simplified if the fix is reliable
+    let retries = 0;
+    const maxRetries = 5; // Try a few times
+    const attemptInitAOS = () => {
+      if (typeof AOS !== 'undefined') {
+        initializeAOS(); // Call main function again
+      } else if (retries < maxRetries) {
+        retries++;
+        setTimeout(attemptInitAOS, 250);
+      } else {
+        console.error("AOS global was not found after multiple retries (vendored, modified).");
+      }
+    };
+    setTimeout(attemptInitAOS, 250);
+  }
+}
+
+AOS.init({ /* options */ });
+console.log("AOS object after init:", AOS);
+// Check if any elements are being processed by AOS
+setTimeout(() => { // Check after a slight delay
+    const animatedElements = document.querySelectorAll('.aos-init.aos-animate');
+    console.log("Elements with AOS classes:", animatedElements);
+    if (animatedElements.length > 0) {
+        console.log("AOS appears to be processing elements.");
+    } else {
+        console.log("AOS might not be finding/animating elements with data-aos attributes.");
+    }
+}, 500); // Wait 500ms for AOS to potentially apply classes
+
 document.addEventListener('turbo:load', () => {
   initializeTomSelectOnMovieDropdown(); // Keep if TomSelect is used
   initializeStarRating();
+  initializeTypedJs();
+ // initializeAOS(); // Add this call
 });

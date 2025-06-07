@@ -37,10 +37,11 @@
   <% if @list.bookmarks.any? %>
     <h5>Bookmarked Movies:</h5>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-      <% @list.bookmarks.includes(:movie).each do |bookmark| %>
-        <%# ... card for each bookmark ... %>
-        <div class="col">
+      <% @list.bookmarks.includes(:movie).each_with_index do |bookmark, index| %>
+        <%# Add data-aos attribute to the column div %>
+          <div class="col" data-aos="fade-up" data-aos-delay="<%= index * 100 %>"> <%# Stagger delay %>
           <div class="card h-100 shadow-sm">
+            <%# ... card content (image, body, footer) remains the same ... %>
             <% if bookmark.movie.poster_url.present? %>
               <%= image_tag bookmark.movie.poster_url, class: "card-img-top", alt: bookmark.movie.title, style: "height: 300px; object-fit: cover;" %>
             <% else %>

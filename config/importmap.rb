@@ -8,3 +8,5 @@ pin_all_from "app/javascript/components", under: "components"
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "tom-select", to: "https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.js"
 pin "star-rating-js", to: "star-rating.js"
+pin "typed.js", to: "https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"
+pin "aos", to: "aos.js"
