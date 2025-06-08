@@ -1,24 +1,37 @@
-# README
+Rails Watch List
+Curate, Bookmark & Review Movies
+A sleek Rails 7 application for creating dynamic movie lists with interactive reviews and intelligent bookmarking.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+https://img.shields.io/badge/Ruby-3.x-%2523CC342D
+https://img.shields.io/badge/Rails-7-%2523CC0000
+https://img.shields.io/badge/Bootstrap-5-%25237952B3
 
-Things you may want to cover:
 
-* Ruby version
+✨ Key Features
+🎥 Intelligent Movie Curation
+CRUD List Management with image URL validation
 
-* System dependencies
+Tom Select-powered search for instant movie discovery
 
-* Configuration
+Smart bookmarking with comment validation (6+ characters)
 
-* Database creation
+⭐ Interactive Reviews
+Star-rating.js for 1-5 interactive ratings
 
-* Database initialization
+Animated SVG displays for submitted reviews
 
-* How to run the test suite
+Turbo Drive integration for seamless form submissions
 
-* Services (job queues, cache servers, search engines, etc.)
+🚀 Immersive UX
+Typed.js animated headers for dynamic page titles
 
-* Deployment instructions
+AOS.js scroll-triggered reveals for bookmark cards
 
-* ...
+Responsive Bootstrap 5 layouts with custom SCSS
+
+🛠️ Tech Stack
+Layer	Technologies
+Frontend	Bootstrap 5, SCSS, Tom Select, AOS.js
+Backend	Rails 7, PostgreSQL
+JS Libraries	Typed.js, Star-Rating.js, Turbo Drive
+Testing	RSpec, Capybara
