@@ -3,9 +3,9 @@
 Curate, Bookmark & Review Movies
 A sleek Rails 7 application for creating dynamic movie lists with interactive reviews and intelligent bookmarking.
 
-<div align="center"> <img src="https://img.shields.io/badge/Ruby-3.x-%2523CC342D" alt="List Interface"> </div>
-<div align="center"> <img src="https://img.shields.io/badge/Rails-7-%2523CC0000" alt="List Interface"> </div>
-<div align="center"> <img src="https://img.shields.io/badge/Bootstrap-5-%25237952B3" alt="List Interface"> </div>
+<div align="left"> <img src="https://img.shields.io/badge/Ruby-3.x-%2523CC342D" alt="List Interface"> </div>
+<div align="left"> <img src="https://img.shields.io/badge/Rails-7-%2523CC0000" alt="List Interface"> </div>
+<div align="left"> <img src="https://img.shields.io/badge/Bootstrap-5-%25237952B3" alt="List Interface"> </div>
 ✨ Key Features
 🎥 Intelligent Movie Curation
 CRUD List Management with image URL validation
